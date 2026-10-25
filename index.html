@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b4f6c">
+<title>خدماتي</title>
+<style>
+  :root { --navy:#0b4f6c; --ink:#1f2933; --bg:#f4f7fa; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family: system-ui, "Noto Sans Arabic", sans-serif; background:var(--bg); color:var(--ink); min-height:100vh; }
+  .screen { display:none; min-height:100vh; padding:24px; flex-direction:column; justify-content:center; max-width:480px; margin:0 auto; }
+  .screen.active { display:flex; }
+  .logo { width:96px; height:96px; border-radius:24px; background:var(--navy); color:#fff; font-size:56px; font-weight:700; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
+  h1 { text-align:center; font-size:34px; margin:0 0 8px; }
+  p.sub { text-align:center; font-size:16px; margin:0 0 40px; color:#4b5563; }
+  button { font:inherit; font-size:18px; padding:16px; border-radius:14px; border:2px solid var(--navy); cursor:pointer; width:100%; margin-bottom:14px; }
+  .primary { background:var(--navy); color:#fff; }
+  .secondary { background:#fff; color:var(--navy); }
+  .top { display:flex; align-items:center; gap:12px; margin-bottom:24px; }
+  .back { width:auto; margin:0; padding:8px 14px; font-size:16px; background:#fff; color:var(--navy); }
+  .top h2 { margin:0; font-size:22px; }
+  .card { background:#fff; border-radius:16px; padding:20px; text-align:center; font-size:18px; line-height:1.9; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+</style>
+</head>
+<body>
+
+<section id="home" class="screen active">
+  <div class="logo">خ</div>
+  <h1>خدماتي</h1>
+  <p class="sub">فنيون موثّقون للكهرباء والصيانة المنزلية</p>
+  <button class="primary" data-go="customer">أنا عميل وأحتاج خدمة</button>
+  <button class="secondary" data-go="tech">أنا فني وأريد عملاء</button>
+</section>
+
+<section id="customer" class="screen">
+  <div class="top"><button class="back" data-go="home">رجوع</button><h2>أنا عميل</h2></div>
+  <div class="card">هذه الشاشة قيد البناء.<br>سنضيف تسجيل الدخول وطلب الخدمة هنا في الخطوة التالية.</div>
+</section>
+
+<section id="tech" class="screen">
+  <div class="top"><button class="back" data-go="home">رجوع</button><h2>أنا فني</h2></div>
+  <div class="card">هذه الشاشة قيد البناء.<br>سنضيف تسجيل الفنيين وتوثيق الهوية هنا في الخطوة التالية.</div>
+</section>
+
+<script>
+  function show(id) {
+    document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('active'); });
+    var el = document.getElementById(id) || document.getElementById('home');
+    el.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+  document.addEventListener('click', function (e) {
+    var go = e.target && e.target.getAttribute && e.target.getAttribute('data-go');
+    if (go) { location.hash = go === 'home' ? '' : go; }
+  });
+  window.addEventListener('hashchange', function () { show(location.hash.slice(1) || 'home'); });
+  show(location.hash.slice(1) || 'home');
+</script>
+</body>
+</html>
